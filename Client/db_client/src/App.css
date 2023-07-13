@@ -40,10 +40,12 @@
 
 body {
   background: url('https://img.freepik.com/free-vector/cinema-film-strips-blue-background_1017-23456.jpg');
+  /* background: url('https://png.pngtree.com/thumb_back/fh260/background/20191106/pngtree-blue-film-film-curled-film-movie-film-and-television-works-image_321322.jpg'); */
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   min-height: 100vh;
+  max-height: 100vh;
 }
 
 .container {
