@@ -36,3 +36,51 @@
     transform: rotate(360deg);
   }
 }
+
+
+body {
+  background: url('https://img.freepik.com/free-vector/cinema-film-strips-blue-background_1017-23456.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 100vh;
+}
+
+.container {
+  text-align: center;
+}
+
+nav {
+  text-align: center;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+}
+
+nav li {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+button {
+  padding: 8px 16px;
+  font-size: 16px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f0f0f0;
+  padding: 10px;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+.nav {
+  cursor: pointer;
+  margin-left: 10px;
+}
