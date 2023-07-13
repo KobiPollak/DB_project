@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import "../styles/homepage.css"; // Import the CSS file for styling
 
+import GetSeatsForm from "./getseatsform";
+import TableDisplay from "./tableDisplay";
+
 const HomePage = () => {
   const firstRow = ["Cinemas", "Movies", "Events"];
   const secondRow = ["Workers", "Products", "Suppliers"];
@@ -89,62 +92,13 @@ const HomePage = () => {
         Get free seats for movie
       </button>
       {showQueryForm ? (
-        <div className="query-form">
-          <h2>Get Empty Seats</h2>
-          <form onSubmit={handleQueryWorker}>
-            <div className="form-row">
-              <input
-                type="text"
-                name="p_cinema_id"
-                placeholder="Cinema ID"
-                value={FormData.p_cinema_id}
-                onChange={handleFormChange}
-              />
-              <input
-                type="text"
-                name="p_date"
-                placeholder="Date"
-                value={FormData.p_date}
-                onChange={handleFormChange}
-              />
-            </div>
-            <div className="form-row">
-              <input
-                type="text"
-                name="p_movie_name"
-                className="worker"
-                placeholder="Movie Name"
-                value={FormData.p_movie_name}
-                onChange={handleFormChange}
-              />
-            </div>
-            <button type="submit">Find</button>
-          </form>
-        </div>
+        <GetSeatsForm
+          handleQueryWorker={handleQueryWorker}
+          FormData={FormData}
+          handleFormChange={handleFormChange}
+        />
       ) : (
-        Object.keys(data).length > 0 && (
-          <div className="response-table">
-            <h2>Response Table</h2>
-            <table>
-              <thead>
-                <tr>
-                  {Object.keys(data[0]).map((key) => (
-                    <th key={key}>{key}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {data.map((item, index) => (
-                  <tr key={index}>
-                    {Object.values(item).map((value, index) => (
-                      <td key={index}>{value}</td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )
+        Object.keys(data).length > 0 && <TableDisplay data={data} />
       )}
     </>
   );

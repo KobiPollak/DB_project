@@ -2,6 +2,11 @@ import React, { useState } from "react";
 
 import "../styles/manager.css"; // Import the CSS file for styling
 
+import AddWorker from "./addWorker";
+import AddOrder from "./addOrder";
+import ChangeSalary from "./changeSalary";
+import TableDisplay from "./tableDisplay";
+
 const Manager = () => {
   const firstRow = [
     "Amount of sales per film",
@@ -260,224 +265,25 @@ const Manager = () => {
         Change Worker salary
       </button>
       {showAddWorkerForm ? (
-        <div className="add-worker-form">
-          <h2>Add Worker</h2>
-          <form onSubmit={handleAddWorker}>
-            <div className="form-row">
-              <input
-                type="text"
-                name="p_id"
-                className="worker"
-                placeholder="ID"
-                value={workerFormData.p_id}
-                onChange={handleFormChange}
-              />
-              <input
-                type="text"
-                name="p_cinema_id"
-                className="worker"
-                placeholder="Cinema ID"
-                value={workerFormData.p_cinema_id}
-                onChange={handleFormChange}
-              />
-            </div>
-            <div className="form-row">
-              <input
-                type="text"
-                name="p_first_name"
-                className="worker"
-                placeholder="First Name"
-                value={workerFormData.p_first_name}
-                onChange={handleFormChange}
-              />
-              <input
-                type="text"
-                name="p_last_name"
-                className="worker"
-                placeholder="Last Name"
-                value={workerFormData.p_last_name}
-                onChange={handleFormChange}
-              />
-            </div>
-            <div className="form-row">
-              <input
-                type="text"
-                name="p_phone_number"
-                className="worker"
-                placeholder="Phone Number"
-                value={workerFormData.p_phone_number}
-                onChange={handleFormChange}
-              />
-              <input
-                type="text"
-                name="p_address"
-                className="worker"
-                placeholder="Address"
-                value={workerFormData.p_address}
-                onChange={handleFormChange}
-              />
-            </div>
-            <div className="form-row">
-              <input
-                type="text"
-                name="p_year_of_birth"
-                className="worker"
-                placeholder="Year of Birth"
-                value={workerFormData.p_year_of_birth}
-                onChange={handleFormChange}
-              />
-              <input
-                type="text"
-                name="p_worker_type"
-                className="worker"
-                placeholder="Worker Type"
-                value={workerFormData.p_worker_type}
-                onChange={handleFormChange}
-              />
-            </div>
-            <div className="form-row">
-              <input
-                type="text"
-                name="p_salary"
-                className="worker"
-                placeholder="Salary"
-                value={workerFormData.p_salary}
-                onChange={handleFormChange}
-              />
-            </div>
-            <button type="submit">Add</button>
-          </form>
-        </div>
+        <AddWorker
+          handleAddWorker={handleAddWorker}
+          workerFormData={workerFormData}
+          handleFormChange={handleFormChange}
+        />
       ) : showAddOrderForm ? (
-        <div className="addOrder">
-          <h2>Add Order</h2>
-          <form onSubmit={handleAddOrder}>
-            <div className="form-row">
-              <input
-                type="text"
-                name="p_order_number"
-                className="order"
-                placeholder="Order Number"
-                value={orderFormData.p_order_number}
-                onChange={handleFormChange}
-              />
-              <input
-                type="text"
-                name="p_date"
-                className="order"
-                placeholder="Date"
-                value={orderFormData.p_date}
-                onChange={handleFormChange}
-              />
-            </div>
-            <div className="form-row">
-              <input
-                type="text"
-                name="p_total_price"
-                className="order"
-                placeholder="Total Price"
-                value={orderFormData.p_total_price}
-                onChange={handleFormChange}
-              />
-              <input
-                type="text"
-                name="p_ordering_phone"
-                className="order"
-                placeholder="Ordering Phone Number"
-                value={orderFormData.p_ordering_phone}
-                onChange={handleFormChange}
-              />
-            </div>
-            <div className="form-row">
-              <input
-                type="text"
-                name="p_time"
-                className="order"
-                placeholder="Time"
-                value={orderFormData.p_time}
-                onChange={handleFormChange}
-              />
-              <input
-                type="text"
-                name="p_seller_id"
-                className="order"
-                placeholder="Seller ID"
-                value={orderFormData.p_seller_id}
-                onChange={handleFormChange}
-              />
-            </div>
-            <div className="form-row">
-              <input
-                type="text"
-                name="p_cinema_id"
-                className="order"
-                placeholder="Cinema ID"
-                value={orderFormData.p_cinema_id}
-                onChange={handleFormChange}
-              />
-            </div>
-            <button type="submit">Add</button>
-          </form>
-        </div>
+        <AddOrder
+          handleAddOrder={handleAddOrder}
+          orderFormData={orderFormData}
+          handleFormChange={handleFormChange}
+        />
       ) : showChangeSalaryForm ? (
-        <div className="changeSalary">
-          <h2>Change Salary</h2>
-          <form onSubmit={handleChangeSalary}>
-            <div className="form-row">
-              <input
-                type="text"
-                name="p_i_d"
-                className="salary"
-                placeholder="Worker ID"
-                value={ChangeSalaryData.p_i_d}
-                onChange={handleFormChange}
-              />
-              <input
-                type="text"
-                name="p_worker_type"
-                className="salary"
-                placeholder="Worker Type"
-                value={ChangeSalaryData.p_worker_type}
-                onChange={handleFormChange}
-              />
-            </div>
-            <div className="form-row">
-              <input
-                type="text"
-                name="p_salary"
-                className="salary"
-                placeholder="New Salary"
-                value={ChangeSalaryData.p_salary}
-                onChange={handleFormChange}
-              />
-            </div>
-            <button type="submit">Change</button>
-          </form>
-        </div>
+        <ChangeSalary
+          handleChangeSalary={handleChangeSalary}
+          ChangeSalaryData={ChangeSalaryData}
+          handleFormChange={handleFormChange}
+        />
       ) : (
-        Object.keys(data).length > 0 && (
-          <div className="response-table">
-            <h2>Response Table</h2>
-            <table>
-              <thead>
-                <tr>
-                  {Object.keys(data[0]).map((key) => (
-                    <th key={key}>{key}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {data.map((item, index) => (
-                  <tr key={index}>
-                    {Object.values(item).map((value, index) => (
-                      <td key={index}>{value}</td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )
+        Object.keys(data).length > 0 && <TableDisplay data={data} />
       )}
     </>
   );
