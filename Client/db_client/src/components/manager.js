@@ -12,7 +12,11 @@ const Manager = () => {
     "Amount of sales per film",
     "Amount of product sales per branch",
   ];
-  const secondRow = ["Best employee in every branch", "All booked rooms"];
+  const secondRow = [
+    "Best employee in every branch",
+    "All booked rooms",
+    "Efficiency of halls",
+  ];
 
   const [data, setData] = useState({});
   const [showAddWorkerForm, setShowAddWorkerForm] = useState(false);
@@ -106,7 +110,10 @@ const Manager = () => {
         .then((response) => {
           if (response.length === 0) {
             throw "username or password wrong. 000";
+          } else if (response.message === "User exist") {
+            alert(response.message);
           }
+          console.log(response);
         })
         .catch((err) => alert(err));
     }
@@ -229,6 +236,9 @@ const Manager = () => {
       sql = "select * from cinema_max_sales";
     } else if (buttonNumber === "All booked rooms") {
       sql = "select * from booked_rooms";
+    } else if (buttonNumber === "Efficiency of halls") {
+      sql =
+        "SELECT p.projection_id, p.cinema_id, p.room_id, MAX(p.date) AS date, MAX(p.start_time) AS start_time, MAX(p.end_time) AS end_time, MAX(p.movie_name) AS movie_name, MAX( r.num_seats - COALESCE(t.num_tickets, 0)) AS empty_seats, MAX(r2.room_id) AS alternative_room_id FROM projection p JOIN rooms r ON p.cinema_id = r.cinema_id AND p.room_id = r.room_id LEFT JOIN ( SELECT cinema_id, room_id, COUNT(*) AS num_tickets FROM tickets WHERE date < CURDATE() GROUP BY cinema_id, room_id ) t ON p.cinema_id = t.cinema_id AND p.room_id = t.room_id JOIN rooms r2 ON p.cinema_id = r2.cinema_id AND p.room_id != r2.room_id AND r2.num_seats >= (COALESCE(t.num_tickets, 0)) AND r2.num_seats < r.num_seats AND (t.num_tickets IS NULL OR r2.num_seats >= t.num_tickets) WHERE p.date < CURDATE() GROUP BY p.projection_id ORDER BY MAX(p.date) DESC, MAX(p.start_time) DESC;";
     }
     getTable(sql);
   };

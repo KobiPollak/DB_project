@@ -97,30 +97,43 @@ app.post("/addworker", (req, res) => {
     if (err) throw err;
     // console.log("Connected!");
   });
-  con.query(insertWorkerQuery, values, (err, result) => {
+  const test = `select * from workers where i_d =${p_id} `;
+  con.query(test, (err, result) => {
     if (err) {
-      console.error(err);
-      res.status(500).json({ error: "Internal server error" });
-    } else {
-      console.log("User registered successfully");
-      //   res.json({ message: "User registered successfully" });
+      throw err;
+      // console.error(err);
+      // res.status(500).json({ error: "Internal server error" });
+    } else if (result.length > 0) {
+      console.log("User exist");
+      res.json({ message: "User exist" });
+      return;
     }
-  });
-  let salaryQuery;
-  if (p_worker_type === "seller") {
-    salaryQuery = `INSERT INTO sellers (i_d, salary) VALUES (?, ?)`;
-  } else {
-    salaryQuery = `INSERT INTO maintenance (i_d, salary) VALUES (?, ?)`;
-  }
-  values = [p_id, p_salary];
-  con.query(salaryQuery, values, (err, result) => {
-    if (err) {
-      console.error(err);
-      res.status(500).json({ error: "Internal server error" });
+    con.query(insertWorkerQuery, values, (err, result) => {
+      if (err) {
+        throw err;
+        // console.error(err);
+        // res.status(500).json({ error: "Internal server error" });
+      } else {
+        console.log("User registered successfully");
+        //   res.json({ message: "User registered successfully" });
+      }
+    });
+    let salaryQuery;
+    if (p_worker_type === "seller") {
+      salaryQuery = `INSERT INTO sellers (i_d, salary) VALUES (?, ?)`;
     } else {
-      console.log("User registered successfully");
-      res.json({ message: "User registered successfully" });
+      salaryQuery = `INSERT INTO maintenance (i_d, salary) VALUES (?, ?)`;
     }
+    values = [p_id, p_salary];
+    con.query(salaryQuery, values, (err, result) => {
+      if (err) {
+        console.error(err);
+        res.status(500).json({ message: "Internal server error!" });
+      } else {
+        console.log("User registered successfully");
+        res.json({ message: "User registered successfully" });
+      }
+    });
   });
 });
 
