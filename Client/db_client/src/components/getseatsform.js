@@ -1,12 +1,12 @@
 import React from "react";
 
 const GetSeatsForm = (props) => {
-  const { handleQueryWorker, FormData, handleFormChange } = props;
+  const { handleQueryRequest, FormData, handleFormChange } = props;
 
   return (
     <div className="query-form">
       <h2>Get Empty Seats</h2>
-      <form onSubmit={handleQueryWorker}>
+      <form onSubmit={handleQueryRequest}>
         <div className="form-row">
           <input
             type="text"
